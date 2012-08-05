@@ -19,6 +19,9 @@ Now add Git
 
 git commit -a -m"[#1118209] Fix dumb bug? for Planbox"
 
+
+git commit -a -m"[fix #1118209] Fix dumb bug? for Planbox"
+
 git commit -a -m"git remote add origin ssh://git@github.com/MarkRobbins/CloudBrain.git"
 
 

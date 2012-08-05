@@ -17,5 +17,9 @@ Hook works
 
 Now add Git
 
+git commit -a -m"[#1118209] Fix dumb bug? for Planbox"
+
+git remote add origin git@github.com:MarkRobbins/CloudBrain.git
+git push -u origin master
 
 

@@ -1,0 +1,21 @@
+[started #33890435] Test Github Integration
+
+Trying again2
+
+hg ci -m"[started #33890925] A Test of Python Hook"
+
+test
+
+Planbox
+
+0
+made hgrc by hand
+
+hg ci -m"[started #33890925] A Test of Python Hook"
+
+Hook works
+
+Now add Git
+
+
+

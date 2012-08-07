@@ -1,29 +1,10 @@
 // ==UserScript==
 // @name           For Iframing
 // @namespace      http://mra.tzo.net
-// @include        http://yt.mra.tzo.net/*
-// @include        http://bam.mra.tzo.net/*
-// @include        http://conf.mra.tzo.net/*
-// @include        http://jira.mra.tzo.net/*
-// @include        http://mra.tzo.net:81/OnTime2009Web/*
-// @require     http://iis.mra.tzo.net/js/jquery-1.7.1.min.js
+// @include        *
+// @require        http://iis.mra.tzo.net/js/jquery-1.7.1.min.js
+// @version 1.100
 // ==/UserScript==
-// --------------------------------------------------------------------------------------------------------------------
-  // <copyright company="Mark Robbins and Associates LLC" file="BetaUser.cs">
-  //   Copyright 2011, Mark Robbins and Associates, Mark Robbins mark.robbins@mrobbinsassoc.com
-  // </copyright>
-  // <summary>
-  // For IFraming
-  // </summary>
-  // <remarks>
-  // $Date: 2011/12/20 03:38:04 $
-  // $Id: for_iframing.user.js 1c36e5772c54 2011/12/20 03:38:04 admin $
-  // $Rev: 1c36e5772c54 $
-  // $URL: http://hg.mra.tzo.net/WebBrainGM/1c36e5772c54/for_iframing.user.js $
-  // $Author: admin $
-  // $Version: 1.0.0 $
-  // </remarks>
-  // --------------------------------------------------------------------------------------------------------------------
 
 //________________________________________________
 // utils
@@ -149,6 +130,7 @@ window.Ifh={
   _winname:'webbrain',
   _wname:window.name,
   _last_h:null,
+  // YOUR CUSTOM DATA HERE
   hosts:{
     'conf.mra.tzo.net':{
       add:190,
@@ -246,10 +228,12 @@ window.Ifh={
       me.publish();
       var o=$('html body h1');
       if (o.length==1) {
+        // Z_DOT 503 handler z.7346246500178277.2012.08.07.11.40.26|tag
         if (o.html()=='Service Temporarily Unavailable') {
           $('html body').css('color','#cccccc');
+          $('html body').css('background-color','#330000');
           $('html body h1').css('color','#cc0000');
-
+          return;
         }
       }
       //setInterval(publish_height,15000);

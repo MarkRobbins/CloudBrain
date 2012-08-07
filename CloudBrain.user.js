@@ -7,7 +7,7 @@
 // @require     http://iis.mra.tzo.net/webbrain-com/jquery-tooltip/lib/jquery.bgiframe.js
 // @require     http://iis.mra.tzo.net/webbrain-com/jquery-tooltip/lib/jquery.dimensions.js
 // @require     http://iis.mra.tzo.net/webbrain-com/jquery-tooltip/jquery.tooltip.js
-// @version     1
+// @version     1.100
 // ==/UserScript==
 //alert(1)
 //alert('$'+(typeof $));

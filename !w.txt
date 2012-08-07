@@ -33,3 +33,4 @@ git push -u origin master
 git remote add origin ssh://git@github.com/MarkRobbins/CloudBrain.git
 
 
+git commit -a -m"[fix #1118209] Fix dumb bug? for Planbox"

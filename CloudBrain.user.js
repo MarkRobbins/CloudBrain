@@ -517,8 +517,8 @@
      s+="background-color:"+st.input.active.bgc+"!important;";
      s+=END;
      s+=BEG("body");
-     s+="background-color:#000000!important;";
-     s+="color:#aaaaaa!important;";
+     //s+="background-color:#000000!important;";
+     //s+="color:#aaaaaa!important;";
      s+=END;
      return s;
      },
@@ -979,6 +979,8 @@
      me.html_div_qs=me.lower_in_in_qs+'>div.gwt-HTML';
      me.clr3_div_qs=me.lower_in_in_qs+'>div:eq(5)';
      me.iframe0_qs=me.lower_in_in_qs+'>iframe';
+     setTimeout(function(){$(me.lower_qs).css('background-color','#000000').css('color','#aaaaaa');},3000);
+
      },
    _pushDisplaySlide:function _pushDisplaySlide__Lw(o,d,fn){
      // o, display val, for those not
@@ -1054,9 +1056,9 @@
      a[a[L]]=$(me.title_qs);
      a[a[L]]=$(me.history_bu_qs);
      a[a[L]]=$(me.edit_bu_qs);
-     a[a[L]]=$(me.clr1_div_qs);
+     //a[a[L]]=$(me.clr1_div_qs);
      a[a[L]]=$(me.links_div_qs);
-     a[a[L]]=$(me.clr2_div_qs);
+     //a[a[L]]=$(me.clr2_div_qs);
      return a;
      },
    _headerShowing:function _headerShowing__Lw(){
@@ -1144,7 +1146,39 @@
        return '';
      }
      return o.html();
-     }
+     },
+   PutSpinner:function PutSpinner__Lw(yn){
+     var me=window.Lw;
+        //logi('');
+        if (yn==true) {
+          if ($('#lowerspinner').length==0) {
+            return;
+          }
+          $('#lowerspinner').remove();
+          return;
+        }
+        if ($('#lowerspinner').length!=0) {
+          return;
+        }
+        var tt=$(me.lower_qs).offset().top;
+        var ll=$(me.lower_qs).width();
+        ll=ll/2;
+        ll=ll-16;
+        var url="http://iis.mra.tzo.net/images/spinner.gif";
+        var s='';
+        s+='<div id="lowerspinner"';
+        s+=' style="position:absolute;';
+        s+='left:'+ll+'px;';
+        s+='top:'+tt+'px;';
+        s+='z-index:10000;';
+        s+='width:32px;';
+        s+='height:16px;';
+        s+="background-image:url('"+url+"');";
+        s+='"';
+        s+="></div>";
+        //prompt('',s);
+        $('body').append(s);
+     },
    };
 //________________________________________________e Lower
 // Location Monitor
@@ -1218,6 +1252,8 @@
      },
    _doit:function _doit__Lm(){
      var me=window.Lm;
+     //alert()
+     Port.MainKill();
      Port.MakeMain();
      },
    init:function init__Lm(){
@@ -1247,7 +1283,7 @@
    Port.pfx='Port';
   //Methods
    Port.prototype._div_html=function _div_html__Port(){
-     var s='<div id='+this.id+' style="width:100%;height:'+Port.IFRAME_SCROLL_H+"px"+'"></div>';
+     var s='<div id='+this.id+' style="width:100%;height:'+Port.IFRAME_SCROLL_H+"px"+';background-color:#FFFFFF;color:#555555;"></div>';
      return s;
      }
    Port.prototype._div_make=function _div_make__Port(){
@@ -1300,14 +1336,15 @@
      //el.name="mainframe"+Lm._l_pageno();
      el.name=nn;
      el.style.width="100%";
-     el.style.height="100%";
+     el.style.height="2000px";
      el.border="0px";
+     el.scrolling="no";
      div.appendChild(el);
      //window['Div'+IFRAME_DIV_NAME]=el;
      this.the_frame=el;
      var oo=$(el);
      var that=this;
-     oo.bind('load',function(){Mn.cmdHideDest(false);Port.MainFocus();window.Fi.Check(that.url)});
+     oo.bind('load',function(){Lw.PutSpinner(true);Mn.cmdHideDest(false);Port.MainFocus();window.Fi.Check(that.url)});
      this._run();
      }
    Port.prototype._stop=function _stop__Port(){
@@ -1354,7 +1391,7 @@
        return;
      }
      if (ny) {
-       this.the_div.css('margin-top','100px');
+       this.the_div.css('margin-top','5000px');
      }else{
        this.the_div.css('margin-top','');
      }
@@ -1387,10 +1424,48 @@
      var p=new Port(l);
      return p;
      }
+   Port.MakeTab=function MakeTab__Port(){
+     var url=Lw.LinkUrl(0);
+     if (url=='') {
+       return;
+     }
+     window['open'](url, "_newtab","");
+     //http://jira.mra.tzo.net/secure/ManageRapidViews.jspa##
+     }
    Port.MakeMain=function MakeMain__Port(){
+     //logi('00000');
+     var url=Lw.LinkUrl(0);
+     //logi('url:'+url);
+     if (url=='') {
+       if (typeof Port.MakeMain.tryct==Us) {
+         Port.MakeMain.tryct=4;
+       }else{
+         Port.MakeMain.tryct--;
+         if (Port.MakeMain.tryct<0) {
+           return;
+         }
+       }
+       setTimeout(Port.MakeMain,1000);
+       return;
+     }
+     delete Port.MakeMain.tryct;
+     if (url.indexOf("##")!=-1) {
+       // var ans=confirm('This Page needs to be opened in a new tab to function, do so?');
+       // if (ans) {
+       //   window['open'](url, "_newtab","");
+       // }
+     }else{
+       Port.MakePort();
+     }
+     //http://jira.mra.tzo.net/secure/ManageRapidViews.jspa##
+     }
+   Port.MainKill=function MainKill__Port(){
+     Port.RemoveAll();
+     Port.Main=null;
+     }
+   Port.MakePort=function MakePort__Port(){
      try{
-       Port.RemoveAll();
-       Port.Main=null;
+       Port.MainKill();
        var url=Lw.LinkUrl(0);
        Port._baseurl_set();
        if (url=='') {
@@ -1402,6 +1477,7 @@
        //Mn.cmdHideDest(false);
        p.Make();
        Port.Main=p;
+       Lw.PutSpinner();
      }catch (e){
        log('exception:'+e.description);
      }

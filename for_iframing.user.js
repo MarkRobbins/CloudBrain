@@ -151,12 +151,14 @@ window.Ifh={
   _last_h:null,
   hosts:{
     'conf.mra.tzo.net':{
-      add:90,
+      add:190,
       qs:'#rw_main'
     },
     'jira.mra.tzo.net':{
       add:0,
-      qs:'#jira'
+      qs:'#jira,#gh-content-inner',
+      mn:{'http://jira.mra.tzo.net/secure/ManageRapidViews.jspa':1000
+      }
     },
     'bam.mra.tzo.net':{
       add:60,
@@ -192,33 +194,53 @@ window.Ifh={
      var me=window.Ifh;
     return location.hostname;
   },
+  _calc:function (){
+     var me=window.Ifh;
+     var o=me.hosts[me._host()];
+     if (typeof o.mn!=Us) {
+       if (typeof o.mn[location.href]!=Us) {
+         return o.mn[location.href];
+       }
+     }
+     if (typeof o==Us) {
+       o={
+         add:0,
+         qs:'body'
+       };
+     }
+     var hh=0;
+     var a=o.qs.split(',');
+     for (var x=0;x<a.length;x++) {
+       var oo=$(a[x]);
+       if (oo.length==1) {
+         var el=oo[0];
+         hh+=el.scrollHeight;
+         //logi('HH:'+(a[x])+' h:'+el.scrollHeight);
+       }
+     }
+     if (hh==0) {
+       hh=2000;
+     }else{
+       hh=hh+o.add;
+     }
+     return hh;
+  },
   publish:function publish__Ifh(){
     var me=window.Ifh;
     if (me._wname==''||typeof me._wname==Us) {
       return;
     }
-    //log('me._host:'+me._host());
-    var o=me.hosts[me._host()];
-    if (typeof o==Us) {
-      o={
-        add:0,
-        qs:'body'
-      };
-    }
-    var qo=$(o.qs);
-    if (qo.length!=1) {
-      return;
-    }
-    var el=qo[0];
+    var hh=me._calc();
     //el=document;
     var nn=me._wname.substring(9);
-    if (me._last_h!=el.scrollHeight||me._last_h==null) {
-      //log(el.scrollHeight);
-      window.parent.location.href=me._ret_url(el.scrollHeight+o.add);
-      me._last_h=el.scrollHeight;
+    if (me._last_h!=hh||me._last_h==null) {
+      logi('HHHHHHHHHHHHHHHHH:'+(hh));
+      window.parent.location.href=me._ret_url(hh);
+      me._last_h=hh;
     }
   },
   Start:function Start__Ifh(){
+    //logi('window.name:'+window.name);
     var me=window.Ifh;
     if (me._wname.substr(0,me._winname.length)==me._winname){
       me.publish();

@@ -1,2 +1,5 @@
 #mine
 .hg/
+!w.txt
+downcopy.bat
+.hgignore

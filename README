@@ -1,5 +1,34 @@
-Greasemonkey Scripts to enhance TheBrain Cloud Services Web Interface, see http://www.thebrain.com/products/cloud/ for product
+Greasemonkey Scripts to enhance TheBrain Cloud Services Web Interface, see http://www.thebrain.com/products/cloud/ for product this is targeting.
 
-Pivotal Tracker for this project is public at https://www.pivotaltracker.com/projects/611833
+
+Features
+========
+
+* Skins Cloud Brain interface in a dark theme
+* Injects Iframe for website Url nodes in brain
+* Adds menu system for utilities
+* Hotkeys F3, PgDn, PgUp
+
+
+Technical
+=========
+
+* Keeping css inside js
+* Will do the same for images
+* Some sites simply will not work or show in an Iframe, append ## to the url to block the Iframe from being created
+
+
+
+
+Notes
+=====
+
+* This has not been tested with document or other links, it is designed for a Brain of pure Urls
+* Such an example Brain can be found at http://webbrain.com/brainpage/brain/753525E3-E419-E2C6-0496-028F1E10BC95
+* Cloud Brains underlying code is in a state of flux, so this project has to keep up with changes
+
+
+
+Public Pivotal Tracker for this project at https://www.pivotaltracker.com/projects/611833
 
 
